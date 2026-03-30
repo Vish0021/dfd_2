@@ -1,0 +1,32 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "Seed data is often created by administrators, so user-level access is appropriate here.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      username: "demoUserOne",
+      email: "demo1@example.com",
+      createdAt: "2023-01-01T10:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      username: "demoUserTwo",
+      email: "demo2@example.com",
+      createdAt: "2023-01-02T11:00:00Z"
+    }
+  ])
+  product_insertMany(data: [
+    {
+      id: "product-1",
+      name: "Sample Product A",
+      description: "A fantastic product for everyone.",
+      price: 19.99,
+      userId: "550e8400-e29b-41d4-a716-446655440000"
+    },
+    {
+      id: "product-2",
+      name: "Sample Product B",
+      description: "Another great product for daily use.",
+      price: 29.99,
+      userId: "550e8400-e29b-41d4-a716-446655440001"
+    }
+  ])
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DFD - Direct Fast Delivery</string>
+    <string name="title_activity_main">DFD - Direct Fast Delivery</string>
+    <string name="package_name">com.dfd.delivery</string>
+    <string name="custom_url_scheme">com.dfd.delivery</string>
+</resources>

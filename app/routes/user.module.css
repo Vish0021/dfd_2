@@ -1,0 +1,13 @@
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-neutral-2);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  /* Push content above bottom nav */
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+}

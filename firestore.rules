@@ -1,0 +1,222 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // -------------------------------------------------------------------------
+    // Helpers
+    // -------------------------------------------------------------------------
+
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isSelf(uid) {
+      return isAuth() && request.auth.uid == uid;
+    }
+
+    function callerRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isAuth() && callerRole() == 'admin';
+    }
+
+    function isRegularUser() {
+      return isAuth() && callerRole() == 'user';
+    }
+
+    // -------------------------------------------------------------------------
+    // /users/{uid}
+    // -------------------------------------------------------------------------
+
+    match /users/{uid} {
+
+      allow read: if isAuth() && (isSelf(uid) || isAdmin());
+
+      allow create: if isAuth()
+                    && isSelf(uid)
+                    && request.resource.data.role == 'user'
+                    && request.resource.data.uid == uid;
+
+      allow update: if (
+                      isAuth()
+                      && isSelf(uid)
+                      && !request.resource.data.diff(resource.data)
+                          .affectedKeys()
+                          .hasAny(['role','uid','createdAt'])
+                    ) || isAdmin();
+
+      allow delete: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /stores/{storeId}
+    // -------------------------------------------------------------------------
+
+    match /stores/{storeId} {
+
+      // Public can browse active stores
+      allow read: if resource.data.active == true || isAdmin();
+
+      allow create: if isAdmin();
+
+      allow update: if isAdmin();
+
+      allow delete: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /items/{itemId}
+    // -------------------------------------------------------------------------
+
+    match /items/{itemId} {
+
+      allow read: if resource.data.available == true || isAdmin();
+
+      allow create: if isAdmin();
+
+      allow update: if isAdmin();
+
+      allow delete: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // /categories/{categoryId}
+    // -------------------------------------------------------------------------
+
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow create: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // /orders/{orderId}
+    // -------------------------------------------------------------------------
+
+    match /orders/{orderId} {
+
+      // Helper: order is in a terminal state and must be immutable
+      function isTerminalOrder() {
+        return resource.data.status == 'delivered'
+            || resource.data.status == 'rejected';
+      }
+
+      allow read: if isAuth() &&
+                   (resource.data.userId == request.auth.uid || isAdmin());
+
+      allow create: if isRegularUser()
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.status == 'pending'
+                    && request.resource.data.keys().hasOnly([
+                      'userId',
+                      'storeId',
+                      'items',
+                      'subtotal',
+                      'taxAmount',
+                      'deliveryFee',
+                      'totalAmount',
+                      'status',
+                      'createdAt'
+                    ]);
+
+      // IMMUTABLE TERMINAL ORDERS: once delivered or rejected, no updates at all
+      allow update: if !isTerminalOrder() && (
+
+        // ADMIN: can update status but NOT financial values
+        (
+          isAdmin()
+          && !request.resource.data.diff(resource.data)
+                .affectedKeys()
+                .hasAny(['subtotal','taxAmount','deliveryFee','totalAmount'])
+        )
+
+      ) || !isTerminalOrder() && (
+
+        // USER: can update only non-financial non-status fields
+        (
+          isSelf(resource.data.userId)
+          && !request.resource.data.diff(resource.data)
+                .affectedKeys()
+                .hasAny(['subtotal','taxAmount','deliveryFee','totalAmount','status'])
+        )
+
+      );
+
+      allow delete: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /notifications/{id}
+    // -------------------------------------------------------------------------
+
+    match /notifications/{id} {
+
+      allow create: if isAuth();
+
+      allow read: if isAuth() &&
+                   resource.data.userId == request.auth.uid
+                   || isAdmin();
+
+      allow update: if isAdmin();
+
+      allow delete: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /adminLogs/{logId}  — immutable audit trail
+    // -------------------------------------------------------------------------
+
+    match /adminLogs/{logId} {
+      // Only admins can read logs; writes come exclusively from Cloud Functions
+      allow read: if isAdmin();
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /deviceTokens/{tokenId}  — FCM device token registry
+    // -------------------------------------------------------------------------
+
+    match /deviceTokens/{tokenId} {
+      // Users can manage their own tokens
+      allow read: if isAuth() && resource.data.userId == request.auth.uid;
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuth() && resource.data.userId == request.auth.uid;
+      allow delete: if isAuth() && resource.data.userId == request.auth.uid;
+    }
+
+    // -------------------------------------------------------------------------
+    // /rateLimits/{id}  — server-only rate-limit tracking
+    // -------------------------------------------------------------------------
+
+    match /rateLimits/{id} {
+      // Entirely managed by Cloud Functions — no client access
+      allow read: if false;
+      allow write: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /_backupRegistry/{id}  — server-only backup tracking
+    // -------------------------------------------------------------------------
+
+    match /_backupRegistry/{id} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // /_healthCheck/{id}  — server-only health ping
+    // -------------------------------------------------------------------------
+
+    match /_healthCheck/{id} {
+      allow read: if false;
+      allow write: if false;
+    }
+
+  }
+}

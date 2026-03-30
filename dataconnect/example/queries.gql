@@ -1,0 +1,25 @@
+mutation CreateUser($username: String!, $email: String!, $createdAt: Timestamp!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_insert(data: {username: $username, email: $email, createdAt: $createdAt})
+}
+
+query GetUserByUsername($username: String!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  users(where: {username: {eq: $username}}) {
+    username
+    email
+    createdAt
+    avatarUrl
+    bio
+  }
+}
+
+mutation UpdateUserProfile($username: String!, $avatarUrl: String, $bio: String) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_update(key: {username: $username}, data: {avatarUrl: $avatarUrl, bio: $bio}) {
+    username
+  }
+}
+
+mutation DeleteUser($username: String!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_delete(key: {username: $username}) {
+    username
+  }
+}

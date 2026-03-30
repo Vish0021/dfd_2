@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1067684394241",
+    "project_id": "dfd1-1ffa1",
+    "storage_bucket": "dfd1-1ffa1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067684394241:android:0aac7d9496d075eff2d700",
+        "android_client_info": {
+          "package_name": "com.dfd.delivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJgU809zI6R50RMd3OnrrzD9BWWchAtMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067684394241:android:607a80e76e5493b8f2d700",
+        "android_client_info": {
+          "package_name": "com.guruvishnu.dfd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJgU809zI6R50RMd3OnrrzD9BWWchAtMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

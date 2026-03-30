@@ -1,0 +1,338 @@
+.home {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--color-accent-2) 0%, var(--color-neutral-1) 300px);
+}
+
+.header {
+  background: var(--color-neutral-1);
+  box-shadow: var(--shadow-1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--font-heading);
+  font-size: var(--font-size-3);
+  color: var(--color-accent-9);
+  text-decoration: none;
+}
+
+.logo svg {
+  color: var(--color-accent-9);
+}
+
+.locationSelector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-neutral-2);
+  border-radius: var(--radius-round);
+  font: var(--font-caption);
+  color: var(--color-neutral-11);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.locationSelector:hover {
+  background: var(--color-neutral-3);
+}
+
+.locationSelector svg {
+  color: var(--color-accent-9);
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-7);
+  border: 1px solid var(--color-neutral-5);
+  border-radius: var(--radius-round);
+  font: var(--font-body);
+  background: var(--color-neutral-1);
+  transition: all 0.2s var(--ease);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-accent-9);
+  box-shadow: 0 0 0 3px var(--color-accent-3);
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-neutral-10);
+  pointer-events: none;
+}
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.userName {
+  font: var(--font-caption);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-neutral-11);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.iconButton {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-round);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-neutral-2);
+  color: var(--color-neutral-11);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  position: relative;
+}
+
+.iconButton:hover {
+  background: var(--color-accent-9);
+  color: var(--color-accent-contrast);
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--color-error-9);
+  color: var(--color-error-contrast);
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-round);
+  font-size: var(--font-size-00);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5);
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.heroTitle {
+  font: var(--font-display);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.heroSubtitle {
+  font: var(--font-subheading);
+  color: var(--color-neutral-11);
+  margin: 0;
+}
+
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.sectionTitle {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0;
+}
+
+.viewAll {
+  color: var(--color-accent-9);
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: all 0.2s var(--ease);
+}
+
+.viewAll:hover {
+  color: var(--color-accent-10);
+  gap: var(--space-2);
+}
+
+.categories {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.categoryCard {
+  flex-shrink: 0;
+  width: 100px;
+  padding: var(--space-4);
+  background: var(--color-neutral-1);
+  border-radius: var(--radius-6);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  box-shadow: var(--shadow-1);
+  border: 2px solid transparent;
+}
+
+.categoryCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
+}
+
+.categoryCardActive {
+  border-color: var(--color-accent-9);
+  background: var(--color-accent-2);
+}
+
+.categoryIcon {
+  font-size: var(--font-size-6);
+  margin-bottom: var(--space-2);
+}
+
+.categoryName {
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  font-size: var(--font-size-0);
+}
+
+.storeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+.recentOrders {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.orderCard {
+  background: var(--color-neutral-1);
+  border-radius: var(--radius-6);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.orderCard:hover {
+  box-shadow: var(--shadow-2);
+  transform: translateX(4px);
+}
+
+.orderImage {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-4);
+  object-fit: cover;
+}
+
+.orderInfo {
+  flex: 1;
+}
+
+.orderStoreName {
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.orderItems {
+  font: var(--font-caption);
+  color: var(--color-neutral-11);
+  margin: 0;
+}
+
+.reorderButton {
+  background: linear-gradient(135deg, var(--color-accent-9), var(--color-accent-10));
+  color: var(--color-accent-contrast);
+  border: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-round);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  box-shadow: 0 2px 8px rgba(247, 107, 21, 0.3);
+  white-space: nowrap;
+}
+
+.reorderButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(247, 107, 21, 0.4);
+}
+
+@media (max-width: 480px) {
+  .headerContent {
+    flex-wrap: wrap;
+  }
+
+  .searchBar {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .storeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTitle {
+    font-size: var(--font-size-5);
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "DFD Food Delivery",
+  "short_name": "DFD Delivery",
+  "description": "Fast and reliable food delivery straight to your door.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

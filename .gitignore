@@ -1,0 +1,20 @@
+node_modules/
+.dazl/
+.DS_Store
+.npmrc
+
+# React Router
+.react-router/
+build/
+.env
+.netlify
+dist/
+
+# Capacitor Android
+android/app/build/
+android/.gradle/
+android/build/
+android/local.properties
+android/app/src/main/assets/public/
+*.apk
+*.log

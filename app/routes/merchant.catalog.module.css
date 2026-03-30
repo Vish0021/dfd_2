@@ -1,0 +1,247 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-neutral-2);
+}
+
+.header {
+  background: var(--color-neutral-1);
+  box-shadow: var(--shadow-1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--font-heading);
+  font-size: var(--font-size-3);
+  color: var(--color-accent-9);
+}
+
+.logo svg {
+  color: var(--color-accent-9);
+}
+
+.merchantBadge {
+  background: var(--color-accent-2);
+  color: var(--color-accent-11);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-round);
+  font: var(--font-caption);
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.navButton {
+  padding: var(--space-2) var(--space-4);
+  background: none;
+  border: none;
+  color: var(--color-neutral-11);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius-round);
+  transition: all 0.2s var(--ease);
+  text-decoration: none;
+}
+
+.navButton:hover {
+  background: var(--color-neutral-3);
+  color: var(--color-neutral-12);
+}
+
+.navButtonActive {
+  background: var(--color-accent-9);
+  color: var(--color-accent-contrast);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+}
+
+.pageTitle {
+  font: var(--font-display);
+  font-size: var(--font-size-5);
+  color: var(--color-neutral-12);
+  margin: 0;
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 400px;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-7);
+  border: 1px solid var(--color-neutral-5);
+  border-radius: var(--radius-round);
+  font: var(--font-body);
+  background: var(--color-neutral-1);
+  transition: all 0.2s var(--ease);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-accent-9);
+  box-shadow: 0 0 0 3px var(--color-accent-3);
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-neutral-10);
+  pointer-events: none;
+}
+
+.productsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.productCard {
+  background: var(--color-neutral-1);
+  border-radius: var(--radius-6);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-1);
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  transition: all 0.2s var(--ease);
+}
+
+.productCard:hover {
+  box-shadow: var(--shadow-2);
+}
+
+.productImage {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-4);
+  object-fit: cover;
+}
+
+.productInfo {
+  flex: 1;
+}
+
+.productName {
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-1) 0;
+  font-size: var(--font-size-1);
+}
+
+.productMeta {
+  display: flex;
+  gap: var(--space-4);
+  font: var(--font-caption);
+  color: var(--color-neutral-11);
+}
+
+.productPrice {
+  font-weight: 700;
+  color: var(--color-accent-9);
+  font-size: var(--font-size-2);
+}
+
+.productActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.stockToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-round);
+  font: var(--font-caption);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.stockToggle input {
+  cursor: pointer;
+}
+
+.inStock {
+  background: var(--color-success-2);
+  color: var(--color-success-11);
+}
+
+.outOfStock {
+  background: var(--color-error-2);
+  color: var(--color-error-11);
+}
+
+.editButton {
+  background: var(--color-neutral-4);
+  color: var(--color-neutral-11);
+  border: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-round);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.editButton:hover {
+  background: var(--color-neutral-5);
+  color: var(--color-neutral-12);
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchBar {
+    max-width: none;
+  }
+
+  .productCard {
+    grid-template-columns: 60px 1fr;
+    gap: var(--space-3);
+  }
+
+  .productActions {
+    grid-column: 2;
+    justify-content: space-between;
+  }
+}

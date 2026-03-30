@@ -1,0 +1,66 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: stretch;
+  background: var(--color-neutral-1);
+  border-top: 1px solid var(--color-neutral-4);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+  /* Safe area for Android home indicator */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: calc(60px + env(safe-area-inset-bottom, 0px));
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: var(--space-2) 0;
+  color: var(--color-neutral-9);
+  text-decoration: none;
+  transition: color 0.18s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.tab::before {
+  content: "";
+  position: absolute;
+  inset: 6px 16px;
+  border-radius: var(--radius-4);
+  background: transparent;
+  transition: background 0.18s var(--ease);
+}
+
+.tab:active::before {
+  background: var(--color-accent-3);
+}
+
+.tabActive {
+  color: var(--color-accent-9);
+}
+
+.tabActive .icon {
+  transform: translateY(-1px);
+}
+
+.icon {
+  transition: transform 0.18s var(--ease-out);
+  position: relative;
+  z-index: 1;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
