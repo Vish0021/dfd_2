@@ -10,7 +10,8 @@ Write-Host ""
 try {
     $javaVersion = java -version 2>&1 | Select-Object -First 1
     Write-Host "[OK] Java found: $javaVersion" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "[ERROR] Java (JDK 17) is not installed!" -ForegroundColor Red
     Write-Host ""
     Write-Host "Install JDK 17 using one of these methods:" -ForegroundColor Yellow
@@ -89,7 +90,8 @@ if (Test-Path $apkSource) {
     Write-Host "  2. Open the file and tap Install" -ForegroundColor White
     Write-Host "  3. Allow 'Install from unknown sources' if prompted" -ForegroundColor White
     Write-Host ""
-} else {
+}
+else {
     Write-Host "[ERROR] APK not found at expected location" -ForegroundColor Red
     exit 1
 }
