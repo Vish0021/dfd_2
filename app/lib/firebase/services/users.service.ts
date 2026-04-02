@@ -21,14 +21,16 @@ function requireDb() {
  */
 export async function createUser(
   uid: string,
-  data: { name: string; phone: string; role: UserRole }
+  data: { name: string; phone: string; email?: string; address?: string; role: UserRole }
 ): Promise<void> {
   const database = requireDb();
   await setDoc(doc(database, col, uid), {
     uid,
     name: data.name,
     phone: data.phone,
+    email: data.email || "",
     role: data.role,
+    location: data.address ? { label: "Home", address: data.address } : null,
     createdAt: serverTimestamp(),
   });
 }

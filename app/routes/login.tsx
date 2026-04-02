@@ -83,6 +83,8 @@ function PhoneLogin() {
   const [phone, setPhone] = useState("+91"); // Default to India for your project
   const [otp, setOtp] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -138,8 +140,15 @@ function PhoneLogin() {
       // Upsert user profile in Firestore
       let profile = await getUser(uid);
       if (!profile) {
+        // Only require name for new signups
         const displayName = name.trim() || cred.user.displayName || "User";
-        await createUser(uid, { name: displayName, phone, role: "user" });
+        await createUser(uid, { 
+          name: displayName, 
+          phone, 
+          email: email.trim(), 
+          address: address.trim(), 
+          role: "user" 
+        });
         profile = await getUser(uid);
       }
 
@@ -185,21 +194,48 @@ function PhoneLogin() {
           >
             <ArrowLeft size={16} /> Change number
           </button>
-          <p className={styles.hint}>
-            Code sent to <strong>{phone}</strong>
+          <p className={styles.info}>
+            OTP sent to <strong>{phone}</strong>
           </p>
+          
           <div className={styles.field}>
-            <label className={styles.label}>Your Name (first time only)</label>
+            <label className={styles.label}>Full Name (Sign-up only)</label>
             <input
               className={styles.input}
               type="text"
-              placeholder="Full name"
+              placeholder="e.g. John Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required={!loading}
             />
           </div>
+
           <div className={styles.field}>
-            <label className={styles.label}>6-digit OTP</label>
+            <label className={styles.label}>Email (Sign-up only)</label>
+            <input
+              className={styles.input}
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required={!loading}
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label}>Delivery Address (Sign-up only)</label>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="e.g. 123 Street Name"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required={!loading}
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label}>Enter 6-digit OTP</label>
             <input
               className={styles.input}
               type="text"
@@ -211,9 +247,10 @@ function PhoneLogin() {
               autoFocus
             />
           </div>
+
           {error && <p className={styles.error}>{error}</p>}
           <Button type="submit" disabled={loading} className={styles.submit}>
-            {loading ? "Verifying…" : "Verify & Sign In"}
+            {loading ? "Verifying…" : "Complete & Sign In"}
           </Button>
         </form>
       )}
