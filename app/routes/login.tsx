@@ -80,7 +80,7 @@ function PhoneLogin() {
   const confirmationRef = useRef<ConfirmationResult | null>(null);
 
   const [step, setStep] = useState<PhoneStep>("phone");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+91"); // Default to India for your project
   const [otp, setOtp] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -91,6 +91,7 @@ function PhoneLogin() {
       if (recaptchaRef.current) {
         try {
           recaptchaRef.current.clear();
+          recaptchaRef.current = null;
         } catch {}
       }
     };
@@ -99,17 +100,27 @@ function PhoneLogin() {
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!phone.trim()) return setError("Please enter a phone number.");
+    
+    // Simple validation
+    if (!phone.trim() || phone.trim().length < 10) {
+      return setError("Please enter a valid phone number with country code.");
+    }
+    
     setLoading(true);
     try {
       if (!recaptchaRef.current) {
         recaptchaRef.current = setupRecaptcha("recaptcha-container");
       }
-      const result = await sendOtp(phone, recaptchaRef.current);
+      const result = await sendOtp(phone.trim(), recaptchaRef.current);
       confirmationRef.current = result;
       setStep("otp");
     } catch (err: unknown) {
+      console.error("Phone Auth Error:", err);
       setError(getErrorMessage(err));
+      // Reset reCAPTCHA on error
+      if (recaptchaRef.current) {
+        try { recaptchaRef.current.clear(); recaptchaRef.current = null; } catch {}
+      }
     } finally {
       setLoading(false);
     }
